@@ -1,0 +1,25 @@
+Set db on digitalocean
+1. create connection pool
+2. Acces to connection pool from local computer
+add to db trusted sources
+
+3. get account info (database uuid)
+doctl auth init --context conn   
+doctl auth switch --context conn 
+doctl account get
+
+4. connect to db
+psql "postgresql://doadmin:AVNS_MmVM235tdmDc6Y3DUXm@db-postgresql-lon1-59579-do-user-15301875-0.c.db.ondigitalocean.com:25060/defaultdb?sslmode=require"
+ (postgresql://user:host:port/db_name)
+
+5. create tables from database.sql
+
+
+Deploy app
+1. Build container
+docker build -t abra19/pages_analyzer .
+2. Push container on dockerhub
+docker push abra19/pages_analyzer
+3. Run on localhost:8080 on digitalocean db
+docker run --rm  --name server -e SECRET_KEY="95af3f6824e37f70adb4ece2bc37184a" -e DATABASE_URL="postgresql://doadmin:AVNS_MmVM235tdmDc6Y3DUXm@db-postgresql-lon1-59579-do-user-15301875-0.c.db.ondigitalocean.com:25061/postgres_conn?sslmode=require" -d -p8080:8080 abra19/pages_analyzer
+DATABASE_URL string in connection pools db

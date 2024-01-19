@@ -1,0 +1,7 @@
+.env
+database.sql
+Makefile
+inventory.yml
+playbook.yml
+
+.DS_Store

@@ -1,0 +1,21 @@
+  - hosts: webservers
+    remote_user: root
+    gather_facts: no
+    tasks:
+      - community.docker.docker_network:
+          name: pa_net
+      
+      - community.docker.docker_container:
+          name: page_analyzer
+          image: "abra19/page_analyzer:v2"
+          restart_policy: always
+          state: started
+          networks:
+            - name: pa_net
+          ports:
+            - 80:8080
+            - 443:8080
+          env:
+            SECRET_KEY: $SECRET_KEY
+            DATABASE_URL: $DATABASE_URL
+
