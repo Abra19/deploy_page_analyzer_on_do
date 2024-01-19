@@ -1,5 +1,5 @@
 /cert
 .env
-commands.txt
+commands_ignore.txt
 
 .DS_Store
